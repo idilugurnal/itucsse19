@@ -6,7 +6,7 @@ create table user_info(
 	firstname varchar(50) not null,
 	lastname varchar(50) not null,
 	email varchar(100) not null unique,
-	school varchar(255) not null,
+	institution varchar(255) not null,
 	passwrd varchar(255) not null check (length(passwrd)>9),
 	isValidated boolean not null default false,
 	primary key(userID)
