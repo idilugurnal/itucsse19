@@ -31,6 +31,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itucsse19/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -43,6 +44,8 @@
           </provider>
         </entry>
       </file>
+=======
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itucsse19/templates/layout.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
+            <state relative-caret-position="34">
               <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
             </state>
           </provider>
@@ -82,6 +85,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pyproject.toml">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="225">
               <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
             </state>
@@ -96,6 +100,10 @@
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
+=======
+            <state relative-caret-position="272">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
             </state>
           </provider>
         </entry>
@@ -163,10 +171,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="22" />
     <option name="width" value="1440" />
-    <option name="height" value="812" />
+    <option name="height" value="813" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -210,7 +218,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="DatabaseDriversLRU" value="postgresql" />
+=======
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -275,20 +286,33 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574332349597</updated>
+<<<<<<< HEAD
       <workItem from="1574332351050" duration="5920000" />
       <workItem from="1574341975071" duration="74000" />
       <workItem from="1574342067678" duration="10765000" />
+=======
+      <workItem from="1574332351050" duration="997000" />
+      <workItem from="1574338290095" duration="650000" />
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="16759000" />
+=======
+    <option name="totallyTimeSpent" value="1647000" />
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="812" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25679544" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18489583" />
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -302,13 +326,21 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32916668" />
+=======
+      <window_info anchor="bottom" id="Terminal" order="11" />
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
+<<<<<<< HEAD
       <window_info anchor="right" id="Database" order="4" weight="0.3297568" />
+=======
+      <window_info anchor="right" id="Database" order="4" />
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,6 +351,7 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/docs/pyproject.toml" />
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/poetry.lock">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -449,6 +482,25 @@
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/README.rst">
+      <provider selected="true" editor-type-id="restructured-text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itucsse19/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pyproject.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+>>>>>>> 7cb3cb703892dbe87e2204843dbd45f99003a8d6
         </state>
       </provider>
     </entry>
