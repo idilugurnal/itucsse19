@@ -3,11 +3,11 @@ create table user_info(
 	userID serial not null unique,
 	userType user_type not null,
 	username varchar(255) not null unique,
-	firsname varchar(50) not null,
-	surname varchar(50) not null,
+	firstname varchar(50) not null,
+	lastname varchar(50) not null,
 	email varchar(100) not null unique,
 	school varchar(255) not null,
-	passwrd varchar(255) not null check (length(passwrd)>16),
+	passwrd varchar(255) not null check (length(passwrd)>9),
 	isValidated boolean not null default false,
 	primary key(userID)
 )
