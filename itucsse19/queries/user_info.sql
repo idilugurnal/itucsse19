@@ -1,4 +1,4 @@
-create type user_type as enum ('University Student', 'High School Student', 'Universiy Represantative', 'High School Representative');
+create type user_type as enum ('University Student', 'High School Student', 'University Representative', 'High School Representative');
 create table user_info(
 	userID serial not null unique,
 	userType user_type not null,
