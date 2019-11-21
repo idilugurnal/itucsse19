@@ -2,6 +2,7 @@ create table invitation_info(
 	invitationID serial not null unique,
 	eventID int not null,
 	inviteeID int not null,
+	invitorID int not null,
 	isSeen bool not null default false,
 	isAccepted bool not null default false,
 	message varchar(500) not null,
@@ -12,6 +13,10 @@ create table invitation_info(
 		on delete cascade
 		on update cascade,
 	foreign key(inviteeID)
+		references user_info(userID)
+		on delete cascade
+		on update cascade,
+	foreign key(invitorID)
 		references user_info(userID)
 		on delete cascade
 		on update cascade
