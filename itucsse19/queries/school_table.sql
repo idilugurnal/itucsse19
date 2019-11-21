@@ -4,10 +4,11 @@ create table institution_info(
 	webAdress varchar(255) not null unique,
 	info varchar(255),
 	contactInfo varchar(255) not null,
-	representativeID int not null,
+	representativeID int,
+	isRegistered bool default false,
 	primary key(institutionID),
 	foreign key(representativeID)
 		references user_info(userID)
-		on delete cascade
+		on delete set null
 		on update cascade
 )
