@@ -22,11 +22,11 @@ def home_page():
 
 @app.route('/register', methods=['GET' , 'POST'])
 def register():
-    user_types = ["High School Student" , "University Student" , "High School Representative" , "University Representative"]
     form = forms.RegistrationForm()
+    print(form.email.data)
     if form.validate_on_submit():
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        my_user = User(form.name.data, form.surname.data, form.username.data, form.email.data, hashed_pass, form.institution.data,form.user_type.data,None)
+        my_user = User(form.name.data, form.surname.data, form.username.data, form.email.data, form.password.data, form.institution.data, form.user_type.data)
         try:
             my_user.save_to_db()
         except:
@@ -34,7 +34,7 @@ def register():
             return redirect(url_for("register"))
         flash(f'Your account is created with username {form.username.data}!', 'success')
         return redirect(url_for("login"))
-    return render_template("register.html", title="Register", form=form, user_types = user_types )
+    return render_template("register.html", title="Register", form=form )
 
 @app.route('/login', methods=['GET' , 'POST'])
 def login():

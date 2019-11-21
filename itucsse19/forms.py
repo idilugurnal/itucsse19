@@ -4,7 +4,6 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 import datetime
 from datetime import date
 
-
 class RegistrationForm(FlaskForm):
     #Validators are used to give conditions for the username , password etc.
     name = StringField("Name" , validators=  [DataRequired()])
@@ -13,7 +12,6 @@ class RegistrationForm(FlaskForm):
     email = StringField("Email" , validators= [DataRequired() , Email()])
     password = PasswordField("Password" , validators = [DataRequired() , Length(min = 5 , max = 15)])
     confirmPass = PasswordField("Confirm Password" , validators = [DataRequired() , EqualTo("password")])
-    institution = SelectField(u'Choose School')
-    ifNotInList = StringField("Unlisted School" )
-    user_type = SelectField(u'Choose Registration Type')
+    institution = StringField('Institution', validators=  [DataRequired()])
+    user_type = SelectField('Select User Type' , choices=[('High School Student' , 'High School Student') , ('University Student' , 'University Student')])
     submit = SubmitField("Register")

@@ -4,8 +4,7 @@ from flask_login import UserMixin
 
 
 class User(UserMixin):
-    def __init__(self, first_name , last_name, username , email, password , institution , userType, id):
-        self.id = id
+    def __init__(self, first_name , last_name, username , email, password , institution , userType):
         self.username = username
         self.userType = userType
         self.institution = institution
@@ -20,9 +19,10 @@ class User(UserMixin):
 
     def save_to_db(self):
         with ConnectionPool() as cursor:
-            cursor.execute('INSERT INTO user_info(firstname, lastname, username, email, passwrd, institution, userID) '
+            print('conn')
+            cursor.execute('INSERT INTO user_info(firstname, lastname, username, email, passwrd, institution, userType ) '
                            'VALUES(%s,%s,%s,%s,%s,%s,%s);'
-                           ,(self.first_name, self.last_name, self.username, self.email, self.password,self.institution, self.id ))
+                           ,(self.first_name, self.last_name, self.username, self.email, self.password,self.institution, self.userType ))
     @classmethod
     def get_with_email(cls,mail):
         with ConnectionPool() as cursor:

@@ -15,6 +15,14 @@
                     {{ form.surname(class = "form-control form-control-lg") }}
             </div>
             <div class = "form-group">
+                    {{ form.institution.label(class = "form-control-label") }}
+                    {{ form.institution(class = "form-control form-control-lg") }}
+            </div>
+            <div class = "form-group">
+                    {{ form.user_type.label(class = "form-control-label") }}
+                    {{ form.user_type(class = "form-control form-control-lg") }}
+            </div>
+            <div class = "form-group">
                 {{ form.username.label(class = "form-control-label") }}
                 {% if form.username.errors %}
                     {{ form.username(class = "form-control form-control-lg ")}}
@@ -49,13 +57,6 @@
                     {% else %}
                         {{ form.confirmPass(class = "form-control form-control-lg") }}
                     {% endif %}
-            </div>
-            <div class = "form-group">
-                <select name= user_types method="GET" action="/" class="form-control">
-                {% for type in user_types %}
-                    <option value= "{{type}}" SELECTED>{{type}}</option>"
-                {% endfor %}
-                </select>
             </div>
         </fieldset>
         <div class = "form-group">
