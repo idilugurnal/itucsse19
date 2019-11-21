@@ -8,11 +8,15 @@ class Database:
 
     @classmethod
     def initialise(cls):
-        url = urlparse(os.environ.get('DATABASE_URL'))
+        Database.__connection_pool = pool.ThreadedConnectionPool(1, 100, database='postgres',
+                    user='postgres',
+                    password='1234',
+                    host='localhost')
+
+        #url = urlparse(os.environ.get('DATABASE_URL'))
         #Database.__connection_pool = pool.ThreadedConnectionPool(1, 100, user=url.username, password=url.password,
-                                                                 #database=url.path[1:], host=url.hostname)
-        Database.__connection_pool = pool.ThreadedConnectionPool(1, 100, user='postgres', password='',
-         database='itucsse19', host='localhost')
+                                                                # database=url.path[1:], host=url.hostname)
+
 
     @classmethod
     def get_connection(cls):
