@@ -20,8 +20,9 @@ class User(UserMixin):
 
     def save_to_db(self):
         with ConnectionPool() as cursor:
-            cursor.execute('INSERT INTO user_info(firstname, lastname, username, email, passwrd, institution, userID, isValidated) VALUES(%s,%s,%s,%s,%s,%s,%s,%s);'
-                           ,(self.first_name, self.last_name, self.username, self.email, self.password,self.institution, self.id , self.is_validated ))
+            cursor.execute('INSERT INTO user_info(firstname, lastname, username, email, passwrd, institution, userID) '
+                           'VALUES(%s,%s,%s,%s,%s,%s,%s);'
+                           ,(self.first_name, self.last_name, self.username, self.email, self.password,self.institution, self.id ))
     @classmethod
     def get_with_email(cls,mail):
         with ConnectionPool() as cursor:
