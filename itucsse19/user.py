@@ -5,7 +5,9 @@ from flask_login import UserMixin
 
 class User(UserMixin):
 
-    def __init__(self, first_name , last_name, username , email, password , institution , userType):
+    def __init__(self, first_name , last_name, username , email, password , institution , userType, id=None):
+        self.id = id
+        print(self.id)
         self.username = username
         self.userType = userType
         self.institution = institution
@@ -22,3 +24,13 @@ class User(UserMixin):
             cursor.execute("INSERT INTO user_info(firstname, lastname, username, email, passwrd, institution, usertype ) VALUES(%s,%s,%s,%s,%s,%s,%s);"
                            ,(self.first_name, self.last_name, self.username, self.email, self.password,self.institution, self.userType ))
 
+    @classmethod
+    def get_by_email(cls, mail):
+        with ConnectionPool() as cursor:
+            cursor.execute('SELECT * FROM user_info WHERE email = %s', (mail,))
+            user_data = cursor.fetchone()
+            if user_data:
+                return cls(id=user_data[0], username=user_data[2], userType=user_data[1], institution=user_data[6], first_name=user_data[3], last_name=user_data[4],
+                           email=user_data[5], password=user_data[7])
+            else:
+                return
