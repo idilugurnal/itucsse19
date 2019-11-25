@@ -10,8 +10,13 @@ class RegistrationForm(FlaskForm):
     surname = StringField("Surname" , validators= [DataRequired()])
     username = StringField("Username" , validators = [DataRequired() , Length( min = 5 , max = 15)])
     email = StringField("Email" , validators= [DataRequired() , Email()])
-    password = PasswordField("Password" , validators = [DataRequired() , Length(min = 5 , max = 15)])
+    password = PasswordField("Password" , validators = [DataRequired() , Length(min = 9)])
     confirmPass = PasswordField("Confirm Password" , validators = [DataRequired() , EqualTo("password")])
     institution = StringField('Institution', validators=  [DataRequired()])
     user_type = SelectField('Select User Type' , choices=[('High School Student' , 'High School Student') , ('University Student' , 'University Student')])
     submit = SubmitField("Register")
+
+class LoginForm(FlaskForm):
+    email = StringField("Email" , validators= [DataRequired() , Email()])
+    password = PasswordField("Password" , validators = [DataRequired()])
+    submit = SubmitField("Log In")
