@@ -13,5 +13,5 @@ class RegistrationForm(FlaskForm):
     password = PasswordField("Password" , validators = [DataRequired() , Length(min = 5 , max = 15)])
     confirmPass = PasswordField("Confirm Password" , validators = [DataRequired() , EqualTo("password")])
     institution = StringField('Institution', validators=  [DataRequired()])
-    user_type = SelectField('Select User Type' , choices=[('High School Student' , 'High School Student') , ('University Student' , 'University Student')])
+    user_type = SelectField('Select User Type' , choices=[('High School Student' , 'High School Student') , ('University Student', 'University Student'), ('University Representative', 'University Representative') , ('High School Representative' , 'High School Representative')])
     submit = SubmitField("Register")
