@@ -26,7 +26,7 @@
                 {{ form.username.label(class = "form-control-label") }}
                 {% if form.username.errors %}
                     {{ form.username(class = "form-control form-control-lg ")}}
-                    {{"Username is invalid. Make sure that your username has 5-15 characters."}}
+                    {{"Username is invalid. Make sure that your username has at least 9 characters."}}
                 {% else %}
                     {{ form.username(class = "form-control form-control-lg") }}
                 {% endif %}
