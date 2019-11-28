@@ -15,3 +15,8 @@ class RegistrationForm(FlaskForm):
     institution = StringField('Institution', validators=  [DataRequired()])
     user_type = SelectField('Select User Type' , choices=[('High School Student' , 'High School Student') , ('University Student', 'University Student'), ('University Representative', 'University Representative') , ('High School Representative' , 'High School Representative')])
     submit = SubmitField("Register")
+
+class LoginForm(FlaskForm):
+    email = StringField("Email" , validators= [DataRequired() , Email()])
+    password = PasswordField("Password" , validators = [DataRequired()])
+    submit = SubmitField("Log In")
