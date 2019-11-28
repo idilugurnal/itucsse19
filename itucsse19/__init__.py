@@ -48,8 +48,7 @@ def login():
     form = forms.LoginForm()
     if request.method == 'POST':
         if current_user.get_id() is not None:
-            flash('You are already logged in !')
-            return render_template("home.html" , title = "Home" , form = form)
+            logout_user()
 
         mail = form.email.data
         password = form.password.data
