@@ -32,11 +32,20 @@ def user_home_page(type, user):
     if type == "University Student":
         return render_template("university_student.html")
     elif type == "High School Student":
-        print("YAYAYAY")
         return render_template("hschool_student.html")
     elif type == "University Representative":
         return render_template("uni_representative.html")
     else:
+        return render_template("home.html")
+
+@app.route("/CreateEvent/<type>", methods=['GET' , 'POST'])
+@login_required
+def create_event(type):
+    if type == "University Representative":
+        pass
+        #TODO: create Event class and add event to database
+    else:
+        #TODO: Implement error here
         return render_template("home.html")
 
 
