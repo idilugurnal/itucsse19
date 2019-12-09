@@ -25,7 +25,7 @@ Database.initialise()
 @app.route('/', methods=['GET' , 'POST'])
 def home_page():
     payload = {'message': 'Hello, world'}
-    return jsonify(payload)
+    return render_template("home.html")
 
 @app.route('/register', methods=['GET' , 'POST'])
 def register():
