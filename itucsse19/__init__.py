@@ -24,8 +24,22 @@ Database.initialise()
 
 @app.route('/', methods=['GET' , 'POST'])
 def home_page():
-    payload = {'message': 'Hello, world'}
     return render_template("home.html")
+
+@app.route("/home/<user>/<type>", methods=['GET' , 'POST'])
+@login_required
+def user_home_page(type, user):
+    if type == "University Student":
+        return render_template("university_student.html")
+    elif type == "High School Student":
+        print("YAYAYAY")
+        return render_template("hschool_student.html")
+    elif type == "University Representative":
+        return render_template("uni_representative.html")
+    else:
+        return render_template("home.html")
+
+
 
 @app.route('/register', methods=['GET' , 'POST'])
 def register():
@@ -56,8 +70,8 @@ def login():
         if new_user and bcrypt.check_password_hash(new_user.password, password):
             login_user(new_user)
             flash(f'Logged in successfuly!' , 'success ')
-            #posts = MyProfile(current_user.username)
-            return redirect(url_for('home_page'))
+            print(new_user.userType)
+            return redirect(url_for('user_home_page', type = new_user.userType, user = new_user.username))
         else:
             flash('Email or password incorrect')
             return render_template("login.html" , title = "Login" , form = form)
