@@ -24,17 +24,21 @@ Database.initialise()
 def home_page():
     return render_template("home.html")
 
-@app.route("/home/<user>/<type>", methods=['GET' , 'POST'])
+@app.route("/home", methods=['GET' , 'POST'])
 @login_required
-def user_home_page(type, user):
-    if type == "University Student":
+def user_home_page():
+    user = User.get_by_username(current_user.username)
+    print(user.userType)
+    if user.userType == "University Student":
         return render_template("university_student.html")
-    elif type == "High School Student":
+    elif user.userType == "High School Student":
         return render_template("hschool_student.html")
-    elif type == "University Representative":
-        return render_template("uni_representative.html")
+    elif user.userType == "University Representative" or user.userType == "High School Representative" :
+        print("heyy");
+        return render_template("rep_home_page.html", posts = user )
     else:
         return render_template("home.html")
+
 
 @app.route("/CreateEvent/<type>", methods=['GET' , 'POST'])
 @login_required
@@ -60,7 +64,6 @@ def register():
             flash('An error occured!')
             return redirect(url_for("register"))
         flash(f'Your account is created with username {form.username.data}!', 'success')
-        #Burada basariyla kayit olunca logine yonlendiriyoruz. Daha develop edilmedigi icin su an sayfa hatasi veriyor
         return redirect(url_for("login"))
     return render_template("register.html", title="Register", form=form )
 
@@ -77,7 +80,8 @@ def login():
         if new_user and bcrypt.check_password_hash(new_user.password, password):
             login_user(new_user)
             flash(f'Logged in successfuly!' , 'success ')
-            return redirect(url_for('user_home_page', type = new_user.userType, user = new_user.username))
+            print(new_user.userType)
+            return redirect(url_for('user_home_page'))
         else:
             flash('Email or password incorrect')
             return render_template("login.html" , title = "Login" , form = form)

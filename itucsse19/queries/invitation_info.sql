@@ -21,3 +21,5 @@ create table invitation_info(
 		on delete cascade
 		on update cascade
 )
+
+alter table event_info add constraint name_info_venue UNIQUE(inviteeID,invitorID, eventTime)

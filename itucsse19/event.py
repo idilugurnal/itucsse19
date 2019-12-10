@@ -29,7 +29,9 @@ class Event():
             cursor.execute("INSERT INTO event_info(eventName, info, hostID, hostType, eventDate, eventTime, duration, venue, address, quota ) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"
                            ,(self.event_name, self.info, self.hostID, self.hostType, self.date, self.time,self.duration, self.venue, self.address, self.quota ))
 
-            cursor.execute("SELECT eventID FROM event_info")
-            self.id = cursor.fetchone()
+            cursor.execute("SELECT eventID FROM event_info WHERE eventName = %s AND info = %s AND venue = %s AND time = %s",
+                           (self.event_name, self.info, self.venue))
+            self.id = cursor.fetchone()[0]
 
         return self.id
+
