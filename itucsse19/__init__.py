@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask, jsonify,render_template, url_for, flash , redirect, request, abort,request, current_app, send_from_directory
 from flask_login import LoginManager
 from flask_login.utils import login_required, login_user, current_user, logout_user
@@ -79,7 +77,6 @@ def login():
         if new_user and bcrypt.check_password_hash(new_user.password, password):
             login_user(new_user)
             flash(f'Logged in successfuly!' , 'success ')
-            print(new_user.userType)
             return redirect(url_for('user_home_page', type = new_user.userType, user = new_user.username))
         else:
             flash('Email or password incorrect')
