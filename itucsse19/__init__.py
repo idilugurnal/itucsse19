@@ -4,6 +4,7 @@ from flask_login.utils import login_required, login_user, current_user, logout_u
 from dbconn import Database
 from flask_bcrypt import Bcrypt
 import forms
+from institution import  Institution
 from user import User
 from dbconn import ConnectionPool
 
@@ -60,6 +61,9 @@ def register():
         my_user = User(form.name.data, form.surname.data, form.username.data, form.email.data, hashed_pass, form.institution.data, form.user_type.data)
         try:
             my_user.save_to_db()
+            if my_user.userType == "University Representative" or my_user.userType == "High School Representative" :
+                institution = Institution( my_user.institution, None, None, None)
+                institution.register(my_user.get_id())
         except:
             flash('An error occured!')
             return redirect(url_for("register"))
@@ -108,6 +112,24 @@ def load_user(user_id):
             return user
         else:
             return
+
+@app.route("/instution/update", methods=['GET', 'POST'])
+@login_required
+def update_profile():
+    form = forms.UpdateInsInfoForm()
+    user = User.get_by_username(current_user.username)
+    posts = Institution.get_by_representative(user.get_id())
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            try:
+                new_info = Institution(user.institution, form.webaddress.data, form.info.data, form.contactInfo.data)
+                new_info.update_information();
+            except:
+                flash('Could not update profile!')
+                return redirect(url_for('update_profile'))
+        flash(f'Your account is updated successfully!', 'success')
+        return redirect(url_for('profile_page'))
+    return render_template("update_institution_info.html", title="Update", form=form, posts = posts)
 
 
 if __name__ == '__main__':
