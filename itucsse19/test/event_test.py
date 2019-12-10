@@ -21,9 +21,9 @@ class EventTest(unittest.TestCase):
                            ("test_name", "test_sur", "testusername", "test@test.com", hashed_pass, "test_institution", "University Representative"))
 
             cursor.execute("SELECT userid FROM user_info where username = 'testusername'")
-            test_id = cursor.fetchone()[0]
+            self.userID = cursor.fetchone()[0]
             cursor.execute("INSERT INTO institution_info(institutionName, webAdress, info, contactInfo, representativeId, isRegistered) "
-                       "VALUES(%s,%s,%s,%s,%s,%s)" , ("NEW INSTITUTION" , "new.new.com", "new information", "0000",test_id , True))
+                       "VALUES(%s,%s,%s,%s,%s,%s)" , ("NEW INSTITUTION" , "new.new.com", "new information", "0000",self.userID , True))
 
             cursor.execute("SELECT institutionID FROM institution_info where webAdress = 'new.new.com'")
 
@@ -39,15 +39,18 @@ class EventTest(unittest.TestCase):
     def insert_check(self, event):
         test_event_id = event.save_to_db()
         with ConnectionPool() as cursor:
-            cursor.execute("SELECT eventName FROM event_info WHERE hostID = 4")
+            cursor.execute("SELECT eventName FROM event_info WHERE hostID = %s", (self.hostID,))
             name = cursor.fetchone()[0]
-        return name
+            cursor.execute("SELECT  participantID FROM participants  Where eventID = %s" , (test_event_id,))
+            participant = cursor.fetchone()[0]
+        return name, participant
 
     def test_main_page(self):
         test_event = Event("test event", "this is a test", self.hostID, "high school" ,"11.12.2020", "15.15", "2 hours", "EEB", "ITU AYAZAGA",
-                           100)
-        name = self.insert_check(test_event)
+                           100, self.userID)
+        name, participant = self.insert_check(test_event)
         self.assertEqual(name, "test event")
+        self.assertIsNotNone(participant)
 
 
 

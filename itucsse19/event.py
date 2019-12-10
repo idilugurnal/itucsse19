@@ -9,10 +9,11 @@ from dbconn import ConnectionPool
 
 
 class Event():
-    def __init__(self, event_name , info, hostID, hostType, date, time, duration, venue, address, quota):
+    def __init__(self, event_name , info, hostID, hostType, date, time, duration, venue, address, quota, creator):
 
         self.event_name = event_name
         self.info = info
+        #HostID is the id of the institution
         self.hostID = hostID
         self.hostType = hostType
         self.date = date
@@ -21,6 +22,7 @@ class Event():
         self.venue = venue
         self.address = address
         self.quota = quota
+        self.creator = creator
         self.id = None
 
 
@@ -32,6 +34,8 @@ class Event():
             cursor.execute("SELECT eventID FROM event_info WHERE eventName = %s AND info = %s AND venue = %s AND eventTime = %s",
                            (self.event_name, self.info, self.venue, self.time))
             self.id = cursor.fetchone()[0]
+
+            cursor.execute("INSERT INTO participants(participantID , eventID) VALUES(%s,%s)" , (self.creator , self.id))
 
         return self.id
 
