@@ -22,4 +22,4 @@ create table invitation_info(
 		on update cascade
 )
 
-alter table event_info add constraint name_info_venue UNIQUE(inviteeID,invitorID, eventTime)
+alter table invitation_info add constraint invitee_invitor_time UNIQUE(inviteeID, invitorID, invitationTime)
