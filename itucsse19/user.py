@@ -34,3 +34,23 @@ class User(UserMixin):
                            email=user_data[5], password=user_data[7])
             else:
                 return
+
+    @classmethod
+    def get_by_username(cls, username):
+        with ConnectionPool() as cursor:
+            cursor.execute('SELECT * FROM user_info WHERE username = %s', (username,))
+            user_data = cursor.fetchone()
+            if user_data:
+                return cls(id=user_data[0], username=user_data[2], userType=user_data[1], institution=user_data[6], first_name=user_data[3], last_name=user_data[4],
+                           email=user_data[5], password=None)
+            else:
+                return
+
+    def get_id(self):
+        with ConnectionPool() as cursor:
+            cursor.execute('SELECT userid FROM user_info WHERE userid = %s', (self.id,))
+            user = cursor.fetchone()
+            if user is None:
+                return
+            else:
+                return self.id
