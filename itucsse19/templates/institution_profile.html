@@ -1,0 +1,22 @@
+{% extends "representative_layout.html" %}
+{%block content %}
+<article class="media content-section">
+        <div class="media-body">
+            <h4> Institution Name :</h4>
+            <p class="article-content">{{ posts.institutionName }}</p>
+            <h4> Our Website :</h4>
+            <p class="article-content">{{ posts.webAdress}}</p>
+            <h4> To contact :</h4>
+            <p class="article-content">{{ posts.contactInfo }}</p>
+            <h4> Info :</h4>
+            <p class="article-content">{{ posts.info }}</p>
+            <h4> Adresses :</h4>
+            {% for address in posts.addreses%}
+            <h6>{{ address.address }}</h6>
+            <p class="article-content">{{ address.address }}</p>
+            {% endfor%}
+
+        </div>
+</article>
+
+{% endblock content %}
