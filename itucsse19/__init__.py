@@ -115,21 +115,31 @@ def load_user(user_id):
 
 @app.route("/instution/update", methods=['GET', 'POST'])
 @login_required
-def update_profile():
+def update_institution_İnfo():
     form = forms.UpdateInsInfoForm()
     user = User.get_by_username(current_user.username)
     posts = Institution.get_by_representative(user.get_id())
     if request.method == 'POST':
         if form.validate_on_submit():
             try:
-                new_info = Institution(user.institution, form.webaddress.data, form.info.data, form.contactInfo.data)
+                new_info = Institution(None, user.institution, form.webaddress.data, form.info.data, form.contactInfo.data)
                 new_info.update_information();
             except:
                 flash('Could not update profile!')
-                return redirect(url_for('update_profile'))
-        flash(f'Your account is updated successfully!', 'success')
-        return redirect(url_for('profile_page'))
+                return redirect(url_for('update_institution_İnfo'))
+        flash(f'Institution info is updated successfully!', 'success')
+        return redirect(url_for('user_home_page'))
     return render_template("update_institution_info.html", title="Update", form=form, posts = posts)
+
+
+@app.route("/institution", methods=['GET'])
+def profile():
+    user = User.get_by_username(current_user.username)
+    institution = Institution.get_by_name(user.institution)
+    institution.get_addresses()
+    return render_template("institution_profile.html", posts = institution)
+
+
 
 
 if __name__ == '__main__':
