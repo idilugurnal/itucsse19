@@ -23,3 +23,10 @@ class LoginForm(FlaskForm):
     email = StringField("Email" , validators= [DataRequired() , Email()])
     password = PasswordField("Password" , validators = [DataRequired()])
     submit = SubmitField("Log In")
+
+class UpdateInsInfoForm(FlaskForm):
+    webaddress = StringField("Webaddress", validators=[DataRequired()])
+    info = StringField("Information",validators=[DataRequired()] )
+    contactInfo = StringField('Contact Info' ,validators=[DataRequired()] )
+    submit = SubmitField("Update")
+

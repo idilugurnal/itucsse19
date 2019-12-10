@@ -48,9 +48,9 @@ class User(UserMixin):
 
     def get_id(self):
         with ConnectionPool() as cursor:
-            cursor.execute('SELECT userid FROM user_info WHERE userid = %s', (self.id,))
+            cursor.execute('SELECT userid FROM user_info WHERE username = %s', (self.username,))
             user = cursor.fetchone()
             if user is None:
                 return
             else:
-                return self.id
+                return user[0]

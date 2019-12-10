@@ -1,0 +1,32 @@
+{% extends "representative_layout.html" %}
+{%block content %}
+<div class = "content-section">
+    <form method = "POST" action = "">
+        <!--Protection-->
+        {{ form.hidden_tag() }}
+        <fieldset class = "form-group">
+            <legend class = "border-bottom-mb-4"> </legend>
+            <div class = "form-group">
+                {{ form.webaddress.label(class = "form-control-label") }}
+                {{ form.webaddress(class = "form-control form-control-lg" , value = posts.webAdress) }}
+            </div>
+            <div class = "form-group">
+                {{ form.contactInfo.label(class = "form-control-label") }}
+                {{ form.contactInfo(class = "form-control form-control-lg" , value = posts.contactInfo) }}
+            </div>
+            <div class = "form-group">
+                {{ form.info.label(class = "form-control-label") }}
+                {{ form.info(class = "form-control form-control-lg", value = posts.info) }}
+            </div>
+        </fieldset>
+        <div class = "form-group">
+            {{ form.submit(class = "btn btn_outline_info")}}
+        </div>
+    </form>
+</div>
+<div class = "border-top pt-3">
+    <small class = "text-muted">
+        
+    </small>
+</div>
+{% endblock content %}
