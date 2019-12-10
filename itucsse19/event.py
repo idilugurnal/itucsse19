@@ -39,3 +39,10 @@ class Event():
 
         return self.id
 
+    @classmethod
+    def get_with_id(cls, my_id):
+        with ConnectionPool() as cursor:
+            cursor.execute("SELECT eventName, info, hostID, hostType, eventDate, eventTime, duration, venue, address, quota FROM event_info WHERE eventID = %s", (my_id,))
+            event = cursor.fetchone()
+            return cls(event_name=event[0], info=event[1], hostID=event[2], hostType=event[3], date=event[4], time=event[5],
+                       duration=event[6],venue= event[7], address=event[8], quota=event[9])

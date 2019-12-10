@@ -5,8 +5,8 @@ from dbconn import Database
 from flask_bcrypt import Bcrypt
 import forms
 from institution import  Institution
-from user import User
 from dbconn import ConnectionPool
+from user import User
 
 
 app = Flask(__name__)

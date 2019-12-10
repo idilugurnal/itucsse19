@@ -7,7 +7,6 @@ class User(UserMixin):
 
     def __init__(self, first_name , last_name, username , email, password , institution , userType, id=None):
         self.id = id
-        print(self.id)
         self.username = username
         self.userType = userType
         self.institution = institution
@@ -54,3 +53,14 @@ class User(UserMixin):
                 return
             else:
                 return user[0]
+
+    def get_events(self):
+        result_list = []
+        with ConnectionPool() as cursor:
+            userid = self.get_id()
+            cursor.execute("SELECT eventID FROM participants WHERE participantID = %s" , (userid,))
+            event_list= cursor.fetchall()
+            for eventID in event_list:
+                event_class = Event.get_with_id(eventID[0])
+                result_list.append(event_class)
+        return result_list

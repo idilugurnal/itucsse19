@@ -1,19 +1,4 @@
-{% extends "univ_student_layout.html" %}
+{% extends "home_layout.html" %}
 {%block content %}
 <h2 style="color:steelblue;"> Events You Can Volunteer For </h2>
-{%for event in evets%}
-    <article class="media content-section">
-        <div class="media-body">
-            <div class="article-metadata">
-                <form action="/home" method = "post">
-                    <input type="hidden" name= "event_id" value= {{event.event_id}} />
-                    <input type="submit"  value = "View">
-                    <small class="text-muted">{{ event.date}} {{ event.time}}</small>
-                </form>
-            </div>
-            <h2><a class="article-title" href="#">{{ event.name }}</a></h2>
-            <p class="article-content">{{ event.explanation }}</p>
-        </div>
-    </article>
-{%endfor}
 {% endblock content %}
