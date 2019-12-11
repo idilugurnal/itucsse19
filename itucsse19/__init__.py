@@ -31,7 +31,10 @@ def user_home_page():
     user = User.get_by_username(current_user.username)
     print(user.userType)
     if user.userType == "University Student":
-        return render_template("university_student.html")
+        events = User.get_events(current_user)
+        for event in events:
+            print(event.event_name)
+        return render_template("university_student.html", events=events)
     elif user.userType == "High School Student":
         return render_template("hschool_student.html")
     elif user.userType == "University Representative" or user.userType == "High School Representative" :
@@ -62,7 +65,7 @@ def register():
         try:
             my_user.save_to_db()
             if my_user.userType == "University Representative" or my_user.userType == "High School Representative" :
-                institution = Institution( my_user.institution, None, None, None)
+                institution = Institution.get_by_name(my_user.institution)
                 institution.register(my_user.get_id())
         except:
             flash('An error occured!')

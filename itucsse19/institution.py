@@ -41,6 +41,7 @@ class Institution:
 
     @classmethod
     def get_by_name(cls, institutionName):
+        print(institutionName)
         with ConnectionPool() as cursor:
             cursor.execute('SELECT * FROM institution_info WHERE institutionName = %s', (institutionName,))
             ins_info = cursor.fetchone()
