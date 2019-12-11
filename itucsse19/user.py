@@ -65,3 +65,19 @@ class User(UserMixin):
                 event_class = Event.get_with_id(eventID[0])
                 result_list.append(event_class)
         return result_list
+
+    def get_institution_events(self):
+        result_list = []
+        with ConnectionPool() as cursor:
+            userid = self.get_id()
+            cursor.execute("SELECT institutionid FROM institution_info WHERE institutionName = %s" , (self.institution,))
+            institution_id = cursor.fetchone()[0]
+            cursor.execute("SELECT eventID FROM event_info WHERE hostID = %s", (institution_id,))
+            event_list = cursor.fetchall()
+            cursor.execute("SELECT eventID FROM participants WHERE participantID = %s", (userid,))
+            my_events = cursor.fetchall()
+            for eventID in event_list:
+                if eventID not in my_events:
+                    event_class = Event.get_with_id(eventID[0])
+                    result_list.append(event_class)
+        return result_list

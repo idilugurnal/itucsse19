@@ -31,9 +31,9 @@ def user_home_page():
     user = User.get_by_username(current_user.username)
     print(user.userType)
     if user.userType == "University Student":
-        events = User.get_events(current_user)
+        events = User.get_institution_events(current_user)
         for event in events:
-            print(event.event_name)
+            print(event.id)
         return render_template("university_student.html", events=events)
     elif user.userType == "High School Student":
         return render_template("hschool_student.html")
@@ -142,6 +142,43 @@ def profile():
     institution.get_addresses()
     return render_template("institution_profile.html", posts = institution)
 
+
+
+@app.route("/volunteer", methods=['POST'])
+@login_required
+def volunteer():
+    event_id = request.form['event_id']
+    print(event_id)
+    print(current_user.get_id())
+    with ConnectionPool() as cursor:
+        try:
+            cursor.execute("INSERT INTO participants(eventID, participantID) VALUES(%s,%s)" , (event_id, current_user.get_id()))
+            flash('Successfuly Volunteered!')
+        except:
+            flash('An Error Occured')
+    return redirect(url_for("user_home_page"))
+
+@app.route("/leaveevent", methods=['POST'])
+@login_required
+def leave_event():
+    event_id = request.form['event_id']
+    print(current_user.get_id())
+    with ConnectionPool() as cursor:
+        try:
+            cursor.execute("DELETE FROM participants WHERE eventID = %s" , (event_id, ))
+            flash('Left Event!')
+        except:
+            flash('An Error Occured')
+    return redirect(url_for("user_home_page"))
+
+
+@app.route("/myevents", methods=['GET'])
+@login_required
+def my_events():
+    events = User.get_events(current_user)
+    for event in events:
+        print(event.id)
+    return render_template("myevents.html", events=events)
 
 
 

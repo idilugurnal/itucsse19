@@ -15,7 +15,10 @@ class Event():
         self.venue = venue
         self.address = address
         self.quota = quota
-        self.id = None
+        with ConnectionPool() as cursor:
+            cursor.execute("SELECT eventID FROM event_info WHERE eventName =%s and info = %s and venue = %s and eventTime = %s ",
+                           (event_name,info,venue,time))
+            self.id = cursor.fetchone()[0]
 
 
     def save_to_db(self, creator = None):
