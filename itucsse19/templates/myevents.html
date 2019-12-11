@@ -1,13 +1,13 @@
 {% extends "univ_student_layout.html" %}
 {%block content %}
-    <h2 style="color:steelblue;"> Events You Can Volunteer For </h2>
+    <h2 style="color:steelblue;"> My Events </h2>
     {% for event in events %}
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
-                <form action="/volunteer" method = "post">
+                <form action="/leaveevent" method = "post">
                     <input type="hidden" name= "event_id" value= {{event.id}} />
-                    <input type="submit"  value = "Volunteer">
+                    <input type="submit"  value = "Leave Event">
                     <small class="text-muted">{{ event.date}} {{ event.time}}</small>
                 </form>
             </div>
