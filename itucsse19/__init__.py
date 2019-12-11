@@ -4,7 +4,7 @@ from flask_login.utils import login_required, login_user, current_user, logout_u
 from dbconn import Database
 from flask_bcrypt import Bcrypt
 import forms
-from institution import  Institution
+from institution import  Institution, Address
 from dbconn import ConnectionPool
 from user import User
 
@@ -38,15 +38,14 @@ def user_home_page():
     elif user.userType == "High School Student":
         return render_template("hschool_student.html")
     elif user.userType == "University Representative" or user.userType == "High School Representative" :
-        print("heyy");
         return render_template("rep_home_page.html", posts = user )
     else:
         return render_template("home.html")
 
 
-@app.route("/CreateEvent/<type>", methods=['GET' , 'POST'])
+@app.route("/create_event", methods=['GET' , 'POST'])
 @login_required
-def create_event(type):
+def create_event():
     if type == "University Representative":
         pass
         #TODO: create Event class and add event to database
@@ -87,7 +86,6 @@ def login():
         if new_user and bcrypt.check_password_hash(new_user.password, password):
             login_user(new_user)
             flash(f'Logged in successfuly!' , 'success ')
-            print(new_user.userType)
             return redirect(url_for('user_home_page'))
         else:
             flash('Email or password incorrect')
@@ -116,9 +114,10 @@ def load_user(user_id):
         else:
             return
 
-@app.route("/instution/update", methods=['GET', 'POST'])
+@app.route("/institution/update", methods=['GET', 'POST'])
 @login_required
 def update_institution_İnfo():
+    # user type kontrol edilmeli
     form = forms.UpdateInsInfoForm()
     user = User.get_by_username(current_user.username)
     posts = Institution.get_by_representative(user.get_id())
@@ -142,6 +141,32 @@ def profile():
     institution.get_addresses()
     return render_template("institution_profile.html", posts = institution)
 
+@app.route("/institution/addresses", methods=['GET', 'POST'])
+@login_required
+def addresses():
+    #user type kontrol edilmeli
+    form = forms.AddAddress()
+    user = User.get_by_username(current_user.username)
+    institution = Institution.get_by_name(user.institution)
+    institution.get_addresses()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            try:
+                new_address=Address(None, institution.institutionID, form.city.data, form.address.data)
+                new_address.save_to_db()
+            except:
+                flash('Could not add the address!')
+                return redirect(url_for('addresses'))
+        flash(f'New address is added successfully!', 'success')
+        return redirect(url_for('addresses'))
+    return render_template("addresses.html", posts = institution.addresses, form=form)
+
+@app.route('/institution/delete_address/<address_id>', methods = ['POST'])
+@login_required
+def delete_address(address_id):
+    address_to_delete = Address(address_id, None, None, None)
+    address_to_delete.delete_from_db()
+    return redirect(url_for('addresses'))
 
 
 @app.route("/volunteer", methods=['POST'])

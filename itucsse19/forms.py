@@ -30,3 +30,8 @@ class UpdateInsInfoForm(FlaskForm):
     contactInfo = StringField('Contact Info' ,validators=[DataRequired()] )
     submit = SubmitField("Update")
 
+class AddAddress(FlaskForm):
+    city = StringField("City", validators=[DataRequired()])
+    address = StringField("Address",validators=[DataRequired()] )
+    submit = SubmitField("Add")
+
