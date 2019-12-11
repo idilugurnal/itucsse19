@@ -1,10 +1,22 @@
 from dbconn import ConnectionPool
 
 class Address:
-    def __init__(self, id, city, address ):
+    def __init__(self, id, ins_id, city, address ):
         self.ID = id
+        self.ins_id = ins_id
         self.city = city
         self.address = address
+
+    def save_to_db(self):
+        with ConnectionPool() as cursor:
+            cursor.execute(
+                "INSERT INTO addresses(institutionID, city, address) VALUES(%s,%s,%s)", (self.ins_id, self.city, self.address, ))
+
+    def delete_from_db(self):
+        with ConnectionPool() as cursor:
+            cursor.execute(
+                "DELETE FROM addresses WHERE addressID= %s", (self.ID,))
+
 
 
 class Institution:
@@ -15,7 +27,7 @@ class Institution:
         self.webAdress = webAdress
         self.info = info
         self.contactInfo = contactInfo
-        self.adresses = []
+        self.addresses = []
 
 
     def update_information(self):
@@ -56,6 +68,6 @@ class Institution:
             cursor.execute('SELECT * FROM addresses WHERE institutionID = %s', (self.institutionID,))
             addresses = cursor.fetchall()
         for address in addresses:
-            add = Address(address[0], address[2], address[3], )
-            self.adresses.append(add)
+            add = Address(address[0], address[1], address[2], address[3], )
+            self.addresses.append(add)
 
