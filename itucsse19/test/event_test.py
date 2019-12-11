@@ -37,7 +37,7 @@ class EventTest(unittest.TestCase):
             cursor.execute("Delete from event_info where hostID = %s" , (self.hostID,))
 
     def insert_check(self, event):
-        test_event_id = event.save_to_db()
+        test_event_id = event.save_to_db(self.userID)
         with ConnectionPool() as cursor:
             cursor.execute("SELECT eventName FROM event_info WHERE hostID = %s", (self.hostID,))
             name = cursor.fetchone()[0]
@@ -47,7 +47,7 @@ class EventTest(unittest.TestCase):
 
     def test_main_page(self):
         test_event = Event("test event", "this is a test", self.hostID, "high school" ,"11.12.2020", "15.15", "2 hours", "EEB", "ITU AYAZAGA",
-                           100, self.userID)
+                           100)
         name, participant = self.insert_check(test_event)
         self.assertEqual(name, "test event")
         self.assertIsNotNone(participant)
