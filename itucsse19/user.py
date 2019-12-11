@@ -1,6 +1,7 @@
 import psycopg2
 from dbconn import ConnectionPool
 from flask_login import UserMixin
+from event import Event
 
 
 class User(UserMixin):
