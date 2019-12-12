@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 import forms
 from institution import  Institution, Address
 from dbconn import ConnectionPool
-from user import User
+from user import User,Event
 
 
 app = Flask(__name__)
@@ -32,8 +32,6 @@ def user_home_page():
     print(user.userType)
     if user.userType == "University Student":
         events = User.get_institution_events(current_user)
-        for event in events:
-            print(event.id)
         return render_template("university_student.html", events=events)
     elif user.userType == "High School Student":
         return render_template("hschool_student.html")
@@ -41,18 +39,6 @@ def user_home_page():
         return render_template("rep_home_page.html", posts = user )
     else:
         return render_template("home.html")
-
-
-@app.route("/create_event", methods=['GET' , 'POST'])
-@login_required
-def create_event():
-    if type == "University Representative":
-        pass
-        #TODO: create Event class and add event to database
-    else:
-        #TODO: Implement error here
-        return render_template("home.html")
-
 
 
 @app.route('/register', methods=['GET' , 'POST'])
@@ -72,6 +58,7 @@ def register():
         flash(f'Your account is created with username {form.username.data}!', 'success')
         return redirect(url_for("login"))
     return render_template("register.html", title="Register", form=form )
+
 
 @app.route("/login" , methods = ['GET' , 'POST'])
 def login():
@@ -94,6 +81,7 @@ def login():
         if current_user.get_id() is not None:
             logout_user()
         return render_template('login.html', title= "Login" , form = form)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -161,12 +149,47 @@ def addresses():
         return redirect(url_for('addresses'))
     return render_template("addresses.html", posts = institution.addresses, form=form)
 
+
 @app.route('/institution/delete_address/<address_id>', methods = ['POST'])
 @login_required
 def delete_address(address_id):
     address_to_delete = Address(address_id, None, None, None)
     address_to_delete.delete_from_db()
     return redirect(url_for('addresses'))
+
+
+@app.route("/create_event", methods=['GET' , 'POST'])
+@login_required
+def create_event():
+    user = User.get_by_username(current_user.username)
+    institution = Institution.get_by_representative(user.get_id())
+    institution.get_addresses()
+    form = forms.CreateEvent()
+    form.address.choices = [(address.address, address.address) for address in institution.addresses]
+    if user.userType == "University Representative":
+        if request.method == 'POST':
+            try:
+                event = Event(form.event_name.data, form.info.data, institution.institutionID, "university",
+                              form.date.data, form.time.data, form.duration.data, form.venue.data, form.address.data,
+                              form.quota.data, form.isOpen.data)
+                event.save_to_db(user.id)
+                flash('Event is Successfuly Created!', 'success')
+                return redirect(url_for("user_home_page"))
+            except:
+                flash('Event can not be created!')
+        return render_template("create_event.html", form=form)
+    elif user.userType == "High School Representative":
+        if request.method == 'POST':
+            try:
+                event = Event(form.event_name.data, form.info.data, institution.institutionID, "high school",
+                              form.date, form.time, form.duration, form.venue, form.address, form.quota, form.isOpen)
+                event.save_to_db(user.id)
+                flash('Event is Successfuly Created!', 'success')
+                return redirect(url_for("user_home_page"))
+            except:
+                flash('Event can not be created!')
+        return render_template("create_event.html", form=form)
+    return redirect(url_for("login"))
 
 
 @app.route("/volunteer", methods=['POST'])

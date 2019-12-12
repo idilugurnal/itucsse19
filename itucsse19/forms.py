@@ -35,3 +35,22 @@ class AddAddress(FlaskForm):
     address = StringField("Address",validators=[DataRequired()] )
     submit = SubmitField("Add")
 
+class CreateEvent(FlaskForm):
+    time = datetime.datetime.now()
+    hour = time.hour
+    minute = time.minute
+    mytime = str(hour) + '.' + str(minute)
+    event_name = StringField("Event Name", validators=[DataRequired()])
+    date = StringField("Date of Event", default=date.today(), validators=[DataRequired()])
+    time = StringField('Event Time', default=mytime, validators=[DataRequired()])
+    duration = StringField('Duration', default="02.00 hours", validators=[DataRequired()])
+    address = RadioField('Address',  validators=[DataRequired()])
+    venue = StringField('Venue', validators=[DataRequired()])
+    info = StringField("Explanation", validators=[DataRequired()])
+    quota = IntegerField("Maximum Number of Participants", validators=[DataRequired()])
+    isOpen = RadioField('Do you want students to participate event without invitation?',
+                           choices=[(True, 'Y'), (False, 'N')], validators=[DataRequired()])
+
+
+    submit = SubmitField("Create")
+
