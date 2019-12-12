@@ -43,10 +43,15 @@ def user_home_page():
 
 @app.route('/register', methods=['GET' , 'POST'])
 def register():
+    with ConnectionPool() as cursor:
+        cursor.execute("SELECT institutionName FROM institution_info WHERE 1 = 1")
+        ints = cursor.fetchall()
     form = forms.RegistrationForm()
+    form.institution.choices = [(int[0], int[0]) for int in ints]
     if form.validate_on_submit():
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        my_user = User(form.name.data, form.surname.data, form.username.data, form.email.data, hashed_pass, form.institution.data, form.user_type.data)
+        my_user = User(form.name.data, form.surname.data, form.username.data, form.email.data, hashed_pass,
+                           form.institution.data, form.user_type.data)
         try:
             my_user.save_to_db()
             if my_user.userType == "University Representative" or my_user.userType == "High School Representative" :

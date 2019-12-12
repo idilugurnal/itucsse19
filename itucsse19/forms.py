@@ -12,7 +12,7 @@ class RegistrationForm(FlaskForm):
     email = StringField("Email" , validators= [DataRequired() , Email()])
     password = PasswordField("Password" , validators = [DataRequired() , Length(min = 9)])
     confirmPass = PasswordField("Confirm Password" , validators = [DataRequired() , EqualTo("password")])
-    institution = StringField('Institution', validators=  [DataRequired()])
+    institution = SelectField('Select User Type')
     user_type = SelectField('Select User Type', choices=[('High School Student', 'High School Student'),
                                                          ('University Student', 'University Student'),
                                                          ('University Representative', 'University Representative'),

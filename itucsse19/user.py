@@ -21,6 +21,12 @@ class User(UserMixin):
 
     def save_to_db(self):
         with ConnectionPool() as cursor:
+            if self.userType == "University Representative" or self.userType == "High School Representative":
+                cursor.execute("SELECT isRegistered FROM institution_info WHERE institutionName = %s" , (self.institution,))
+                val = cursor.fetchone()
+                if val is not None:
+                    flash(f'An error occured!', 'error')
+                    return
             cursor.execute("INSERT INTO user_info(firstname, lastname, username, email, passwrd, institution, usertype ) VALUES(%s,%s,%s,%s,%s,%s,%s);"
                            ,(self.first_name, self.last_name, self.username, self.email, self.password,self.institution, self.userType ))
 
